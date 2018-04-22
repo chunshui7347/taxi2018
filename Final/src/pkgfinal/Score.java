@@ -10,10 +10,6 @@ public class Score {
   private static double total; 
   private static int counter=0;
   
-  public Score(){
-    
-  }
-  
   public double getAverage(){
       average = total/counter;
       return average;

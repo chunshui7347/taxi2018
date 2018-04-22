@@ -278,6 +278,14 @@ public class Map {
         Passenger customer = new Passenger();
         if (saveLabel[holdrow][holdcol].contains("_s")) {
             pw.println("[" + stepCounter + "]Taxi fetch passenger " + saveLabel[holdrow][holdcol].substring(0, 1));
+            System.out.print("Customer " + saveLabel[holdrow][holdcol].substring(0, 1) + ", ");
+            String luggage=customer.luggage();
+            if(luggage.equals("Y")){
+                stepCounter++;
+                pw.println("[" + stepCounter + "]Customer "+  saveLabel[holdrow][holdcol].substring(0, 1)+ " Putting Luggage");
+            }
+            
+            
 
         } else if (saveLabel[holdrow][holdcol].contains("_d")) {
             pw.println("[" + stepCounter + "]Taxi dropped passenger " + saveLabel[holdrow][holdcol].substring(0, 1));

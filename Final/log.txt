@@ -1,0 +1,27 @@
+Execution Log :      
+[0]Taxi is started
+[0]Taxi fetch passenger A
+[1]Customer A Putting Luggage
+[1]Taxi move right
+[2]Taxi move right
+[3]Taxi move down
+[4]Taxi move down
+[5]Taxi fetch passenger B
+[6]Customer B Putting Luggage
+[6]Taxi move right
+[7]Taxi move up
+[8]Taxi dropped passenger A
+[8]Taxi move right
+[9]Taxi move up
+[10]Taxi fetch passenger C
+[11]Customer C Putting Luggage
+[11]Taxi move down
+[12]Taxi move down
+[13]Taxi move down
+[14]Taxi move down
+[15]Taxi dropped passenger C
+[15]Taxi move left
+[16]Taxi move left
+[17]Taxi move left
+[18]Taxi move left
+[19]Taxi dropped passenger B

@@ -45,5 +45,11 @@ public class Passenger {
     public static int getCustomer() {
         return customer;
     }
+    
+    public String luggage(){
+         System.out.print("Do you have luggage?");
+         String luggage = input.next();
+         return luggage;
+    }
 
 }
