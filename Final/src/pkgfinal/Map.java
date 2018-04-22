@@ -30,7 +30,8 @@ public class Map {
     ArrayList<String> labelname = new ArrayList<>();
     ArrayList<Integer> WaitingTime = new ArrayList<>();
     ArrayList<Integer> RidingTime = new ArrayList<>();
-
+    
+    
     public Map(int M, int N, int numOfPassenger) throws FileNotFoundException {
         this.pw = new PrintWriter(new FileOutputStream("Log.txt"));
         this.M = M;
@@ -39,7 +40,6 @@ public class Map {
         this.map = new int[M][N];
         canSearch.add(3);
         this.saveLabel = new String[M][N];
-        this.numOfPassenger = numOfPassenger;
         WaitingTime.add(0);
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
@@ -63,7 +63,6 @@ public class Map {
         return (row >= 0) && (row < M) && (col >= 0) && (col < N)
                 && mat[row][col] >= 1 && !visited[row][col];
     }
-
 
     public static int BFS(int mat[][], int i, int j, int x, int y) {
 
@@ -110,11 +109,14 @@ public class Map {
             for (int j = 0; j < map.length; j++) {
                 if (map[i][j] == 0) {
                     map[i][j] = 1;
+                    
                 }
+                System.out.print(map[i][j]+" ");
             }
+            System.out.println("");
         }
+        
     }
-
     public int getCounter() {
         return counter;
     }
@@ -176,16 +178,25 @@ public class Map {
             for (int j = 0; j < map[i].length; j++) {
                 if (canSearch.contains(map[i][j])) {
                     int dest = BFS(map, holdrow, holdcol, i, j);
-                    if (dest < min) {
-                        min = dest;
-                        nextrow = i;
-                        nextcol = j;
-                        crntTemp = map[i][j];
-                    } else if (dest == min && crntTemp % 2 == 1 && map[i][j] % 2 == 0) {
-                        min = dest;
-                        nextrow = i;
-                        nextcol = j;
-                        crntTemp = map[i][j];
+                    if (numOfPassenger < 4) {
+                        if (dest < min) {
+                            min = dest;
+                            nextrow = i;
+                            nextcol = j;
+                            crntTemp = map[i][j];
+                        } else if (dest == min && crntTemp % 2 == 1 && map[i][j] % 2 == 0) {
+                            min = dest;
+                            nextrow = i;
+                            nextcol = j;
+                            crntTemp = map[i][j];
+                        }
+                    } else {
+                        if (dest < min && map[i][j]%2 ==1) {
+                            min = dest;
+                            nextrow = i;
+                            nextcol = j;
+                            crntTemp = map[i][j];
+                        }
                     }
                 }
             }
@@ -193,8 +204,6 @@ public class Map {
         }
 
         temp = map[nextrow][nextcol];
-
-//        System.out.println(temp);
         map[nextrow][nextcol] = 1;
         previousrow = holdrow;
         previouscol = holdcol;
@@ -204,10 +213,13 @@ public class Map {
         canSearch.remove(canSearch.indexOf(temp));
         if (temp % 2 == 0) {
             canSearch.add(temp + 1);
+            numOfPassenger++;
+        } else {
+            numOfPassenger--;
         }
     }
 
-     public void direction() {
+    public void direction() {
         int row = holdrow - previousrow;
         int col = holdcol - previouscol;
 
@@ -238,6 +250,9 @@ public class Map {
             pw.println("[" + stepCounter + "]Taxi fetch passenger " + saveLabel[holdrow][holdcol].substring(0, 1));
         } else if (saveLabel[holdrow][holdcol].contains("_d")) {
             pw.println("[" + stepCounter + "]Taxi dropped passenger " + saveLabel[holdrow][holdcol].substring(0, 1));
+            System.out.print("Customer " +saveLabel[holdrow][holdcol].substring(0, 1)+", ");
+            Score lol = new Score();
+            lol.GiveMark();
         }
     }
 
@@ -247,10 +262,11 @@ public class Map {
             if (stepCounter == 0) {
                 pw.println("[" + stepCounter + "]" + "Taxi is started");
             }
-            for (int i = 0; i < (passenger * 2) ; i++) {
-
+            for (int i = 0; i < (passenger * 2); i++) {
+                
                 choose();
                 direction();
+                
 
             }
 
@@ -259,8 +275,6 @@ public class Map {
             System.out.println("File output error");
         }
     }
-
-
 
     public void ride(int a, int b, int c, int d) {
         ride = BFS(map, a, b, c, d);

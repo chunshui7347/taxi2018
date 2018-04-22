@@ -2,34 +2,32 @@ Execution Log :
 [0]Taxi is started
 [0]Taxi fetch passenger A
 [0]Taxi move right
-[1]Taxi move down
-[2]Taxi dropped passenger A
+[1]Taxi fetch passenger B
+[1]Taxi move right
+[2]Taxi fetch passenger C
 [2]Taxi move right
-[3]Taxi fetch passenger E
-[3]Taxi move down
-[4]Taxi fetch passenger B
-[4]Taxi move right
-[5]Taxi move right
+[3]Taxi fetch passenger D
+[3]Taxi move right
+[4]Taxi move down
+[5]Taxi move down
 [6]Taxi move down
-[7]Taxi fetch passenger D
+[7]Taxi dropped passenger D
 [7]Taxi move down
-[8]Taxi dropped passenger E
-[8]Taxi move right
+[8]Taxi dropped passenger A
+[8]Taxi move left
 [9]Taxi dropped passenger B
-[9]Taxi move right
-[10]Taxi move down
-[11]Taxi move down
-[12]Taxi fetch passenger C
-[12]Taxi move left
-[13]Taxi move left
-[14]Taxi move left
+[9]Taxi move left
+[10]Taxi dropped passenger C
+[10]Taxi move right
+[11]Taxi move right
+[12]Taxi move up
+[13]Taxi move up
+[14]Taxi move up
 [15]Taxi move up
-[16]Taxi move up
-[17]Taxi move up
-[18]Taxi move up
-[19]Taxi dropped passenger D
-[19]Taxi move left
-[20]Taxi move left
-[21]Taxi move up
-[22]Taxi move up
-[23]Taxi dropped passenger C
+[16]Taxi fetch passenger E
+[16]Taxi move left
+[17]Taxi move left
+[18]Taxi move down
+[19]Taxi move down
+[20]Taxi move down
+[21]Taxi dropped passenger E

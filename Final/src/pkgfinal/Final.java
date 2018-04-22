@@ -8,7 +8,7 @@ public class Final {
 
     public static void main(String[] args) throws FileNotFoundException {
         Scanner s = new Scanner(System.in);
-
+        Score lol = new Score();
         int sPntX = 0;
         int sPntY = 0;
         int dPntX = 0;
@@ -45,6 +45,11 @@ public class Final {
         for (int i = 0; i < b; i++) {
             System.out.println("Passenger " + taxi.getName(i) + " wait for " + taxi.getWait(i) + "  minutes, ride for " + taxi.getRide(i));
         }
+        System.out.println("");
         taxi.printToFile(b);
+        System.out.printf("The rating is %.2f", lol.getAverage());
+        System.out.println("");
+        
+        
     }
 }
