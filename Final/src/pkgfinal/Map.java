@@ -26,12 +26,12 @@ public class Map {
     private int previousrow = holdrow, previouscol = holdcol;
     private static int stepCounter = 0;
     PrintWriter pw;
+
     ArrayList<Integer> canSearch = new ArrayList<>();
     ArrayList<String> labelname = new ArrayList<>();
     ArrayList<Integer> WaitingTime = new ArrayList<>();
     ArrayList<Integer> RidingTime = new ArrayList<>();
-    
-    
+
     public Map(int M, int N, int numOfPassenger) throws FileNotFoundException {
         this.pw = new PrintWriter(new FileOutputStream("Log.txt"));
         this.M = M;
@@ -109,14 +109,15 @@ public class Map {
             for (int j = 0; j < map.length; j++) {
                 if (map[i][j] == 0) {
                     map[i][j] = 1;
-                    
+
                 }
-                System.out.print(map[i][j]+" ");
+                System.out.print(map[i][j] + " ");
             }
             System.out.println("");
         }
-        
+
     }
+
     public int getCounter() {
         return counter;
     }
@@ -172,13 +173,14 @@ public class Map {
     }
 
     public void choose() {
+        Passenger customer = new Passenger();
         min = Integer.MAX_VALUE;
         for (int i = 0; i < map.length; i++) {
             int crntTemp = map[holdrow][holdcol];
             for (int j = 0; j < map[i].length; j++) {
                 if (canSearch.contains(map[i][j])) {
                     int dest = BFS(map, holdrow, holdcol, i, j);
-                    if (numOfPassenger < 4) {
+                    if (numOfPassenger < 4 && numOfPassenger+customer.getFetch()<4) {
                         if (dest < min) {
                             min = dest;
                             nextrow = i;
@@ -191,7 +193,7 @@ public class Map {
                             crntTemp = map[i][j];
                         }
                     } else {
-                        if (dest < min && map[i][j]%2 ==1) {
+                        if (dest < min && map[i][j] % 2 == 1) {
                             min = dest;
                             nextrow = i;
                             nextcol = j;
@@ -202,7 +204,7 @@ public class Map {
             }
 
         }
-
+        
         temp = map[nextrow][nextcol];
         map[nextrow][nextcol] = 1;
         previousrow = holdrow;
@@ -213,10 +215,21 @@ public class Map {
         canSearch.remove(canSearch.indexOf(temp));
         if (temp % 2 == 0) {
             canSearch.add(temp + 1);
-            numOfPassenger++;
+//            numOfPassenger++;
         } else {
-            numOfPassenger--;
+//            numOfPassenger--;
         }
+
+        if (saveLabel[holdrow][holdcol].contains("_s")) {
+            System.out.print("Customer " + saveLabel[holdrow][holdcol].substring(0, 1) + ", ");
+            customer.Fetching(saveLabel[holdrow][holdcol].substring(0, 1));
+            numOfPassenger= numOfPassenger+customer.getFetch();
+
+        } else if (saveLabel[holdrow][holdcol].contains("_d")) {
+            numOfPassenger= numOfPassenger - customer.getDrop(saveLabel[holdrow][holdcol].substring(0, 1));
+
+        }
+
     }
 
     public void direction() {
@@ -225,11 +238,19 @@ public class Map {
 
         if (col >= 0) {
             for (int i = 0; i < col; i++) {
+                if (breakdown() == 1) {
+                    pw.println("[" + stepCounter + "]" + "Taxi breakdown");
+                    stepCounter += 10;
+                }
                 pw.println("[" + stepCounter + "]" + "Taxi move right");
                 stepCounter++;
             }
         } else {
             for (int i = col; i < 0; i++) {
+                if (breakdown() == 1) {
+                    pw.println("[" + stepCounter + "]" + "Taxi breakdown");
+                    stepCounter += 10;
+                }
                 pw.println("[" + stepCounter + "]" + "Taxi move left");
                 stepCounter++;
 
@@ -237,20 +258,30 @@ public class Map {
         }
         if (row >= 0) {
             for (int i = 0; i < row; i++) {
+                if (breakdown() == 1) {
+                    pw.println("[" + stepCounter + "]" + "Taxi breakdown");
+                    stepCounter += 10;
+                }
                 pw.println("[" + stepCounter + "]" + "Taxi move down");
                 stepCounter++;
             }
         } else {
             for (int i = row; i < 0; i++) {
+                if (breakdown() == 1) {
+                    pw.println("[" + stepCounter + "]" + "Taxi breakdown");
+                    stepCounter += 10;
+                }
                 pw.println("[" + stepCounter + "]" + "Taxi move up");
                 stepCounter++;
             }
         }
+        Passenger customer = new Passenger();
         if (saveLabel[holdrow][holdcol].contains("_s")) {
             pw.println("[" + stepCounter + "]Taxi fetch passenger " + saveLabel[holdrow][holdcol].substring(0, 1));
+
         } else if (saveLabel[holdrow][holdcol].contains("_d")) {
             pw.println("[" + stepCounter + "]Taxi dropped passenger " + saveLabel[holdrow][holdcol].substring(0, 1));
-            System.out.print("Customer " +saveLabel[holdrow][holdcol].substring(0, 1)+", ");
+            System.out.print("Customer " + saveLabel[holdrow][holdcol].substring(0, 1) + ", ");
             Score lol = new Score();
             lol.GiveMark();
         }
@@ -263,11 +294,9 @@ public class Map {
                 pw.println("[" + stepCounter + "]" + "Taxi is started");
             }
             for (int i = 0; i < (passenger * 2); i++) {
-                
+
                 choose();
                 direction();
-                
-
             }
 
             pw.close();
@@ -296,6 +325,12 @@ public class Map {
 
     public String getName(int i) {
         return labelname.get(i);
+    }
+
+    public int breakdown() {
+        Random rand = new Random();
+        int breakdown = 1 + rand.nextInt(19);
+        return breakdown;
     }
 
 }

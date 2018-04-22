@@ -9,6 +9,7 @@ public class Final {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner s = new Scanner(System.in);
         Score lol = new Score();
+        Passenger customer = new Passenger();
         int sPntX = 0;
         int sPntY = 0;
         int dPntX = 0;
@@ -34,8 +35,8 @@ public class Final {
             taxi.Source(sPntX, sPntY, label++);
             System.out.print("Enter passenger #" + (i + 1) + " destination location:");
             dPntX = s.nextInt();
-            dPntY = s.nextInt();
-
+            dPntY = s.nextInt();      
+           
             taxi.saveLabelDest(dPntX, dPntY, x);
             taxi.Destination(dPntX, dPntY, label++);
             taxi.ride(sPntX, sPntY, dPntX, dPntY);
@@ -49,6 +50,7 @@ public class Final {
         taxi.printToFile(b);
         System.out.printf("The rating is %.2f", lol.getAverage());
         System.out.println("");
+        System.out.println("The total of customer is "+customer.getCustomer());
         
         
     }
