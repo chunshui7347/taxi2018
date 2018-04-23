@@ -51,6 +51,8 @@ public class Final {
         System.out.printf("The rating is %.2f", lol.getAverage());
         System.out.println("");
         System.out.println("The total of customer is "+customer.getCustomer());
+        System.out.println("");
+        System.out.println("Taxi today earned : "+taxi.getTaxiSalary());
         
         
     }
