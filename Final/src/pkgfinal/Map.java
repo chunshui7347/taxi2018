@@ -7,6 +7,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Map {
 
@@ -19,6 +20,7 @@ public class Map {
     private int min = Integer.MAX_VALUE;
     private String[][] saveLabel;
     private static int numOfPassenger;
+    private static double taxiEarn;
     private static final int row[] = {-1, 0, 0, 1};
     private static final int col[] = {0, -1, 1, 0};
     private int[][] array;
@@ -31,6 +33,8 @@ public class Map {
     ArrayList<String> labelname = new ArrayList<>();
     ArrayList<Integer> WaitingTime = new ArrayList<>();
     ArrayList<Integer> RidingTime = new ArrayList<>();
+    
+    Scanner s = new Scanner(System.in);
 
     public Map(int M, int N, int numOfPassenger) throws FileNotFoundException {
         this.pw = new PrintWriter(new FileOutputStream("Log.txt"));
@@ -227,6 +231,7 @@ public class Map {
 
         } else if (saveLabel[holdrow][holdcol].contains("_d")) {
             numOfPassenger= numOfPassenger - customer.getDrop(saveLabel[holdrow][holdcol].substring(0, 1));
+            
 
         }
 
@@ -292,6 +297,9 @@ public class Map {
             System.out.print("Customer " + saveLabel[holdrow][holdcol].substring(0, 1) + ", ");
             Score lol = new Score();
             lol.GiveMark();
+            System.out.print("Customer " + saveLabel[holdrow][holdcol].substring(0, 1) + ", "+"Kindly enter your payment here : ");
+            double pay = s.nextDouble();
+            taxiEarn = taxiEarn+pay;
         }
     }
 
@@ -311,6 +319,13 @@ public class Map {
         } catch (Exception e) {
             System.out.println("File output error");
         }
+    }
+    public double fees(int w, int x, int y, int z) {
+        System.out.println("Your fees is :"+(Math.abs(y-w)+Math.abs(z-x))*1.5);
+        return (Math.abs(y-w)+Math.abs(z-x))*1.5;
+    }
+    public double getTaxiSalary(){
+        return taxiEarn;
     }
 
     public void ride(int a, int b, int c, int d) {
