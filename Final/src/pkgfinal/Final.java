@@ -40,6 +40,7 @@ public class Final {
             taxi.saveLabelDest(dPntX, dPntY, x);
             taxi.Destination(dPntX, dPntY, label++);
             taxi.ride(sPntX, sPntY, dPntX, dPntY);
+            taxi.fees(sPntX, sPntY, dPntX, dPntY);
 
         }
         taxi.printMap();
