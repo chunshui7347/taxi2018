@@ -1,32 +1,29 @@
 Execution Log :      
 [0]Taxi is started
 [0]Taxi fetch passenger A
-[1]Customer A Putting Luggage
-[1]Taxi move right
+[0]Taxi move right
+[1]Taxi move down
+[2]Taxi dropped passenger A
 [2]Taxi move right
 [3]Taxi move down
-[4]Taxi move down
-[5]Taxi fetch passenger B
-[6]Customer B Putting Luggage
-[6]Taxi move right
-[7]Taxi breakdown
-[17]Taxi move up
-[18]Taxi dropped passenger A
-[19]Customer A Taking Luggage
-[19]Taxi breakdown
-[29]Taxi move right
+[4]Taxi fetch passenger B
+[4]Taxi breakdown
+[14]Taxi move right
+[15]Taxi breakdown
+[25]Taxi move down
+[26]Taxi dropped passenger B
+[26]Taxi move right
+[27]Taxi fetch passenger C
+[27]Taxi move down
+[28]Taxi dropped passenger C
+[28]Taxi move up
+[29]Taxi move up
 [30]Taxi move up
-[31]Taxi fetch passenger C
-[32]Customer C Putting Luggage
-[32]Taxi move down
+[31]Taxi move up
+[32]Taxi fetch passenger D
+[32]Taxi move left
+[33]Taxi fetch passenger E
 [33]Taxi move down
-[34]Taxi move down
-[35]Taxi move down
-[36]Taxi dropped passenger C
-[37]Customer C Taking Luggage
-[37]Taxi move left
-[38]Taxi move left
-[39]Taxi move left
-[40]Taxi move left
-[41]Taxi dropped passenger B
-[42]Customer B Taking Luggage
+[34]Taxi dropped passenger E
+[34]Taxi move right
+[35]Taxi dropped passenger D

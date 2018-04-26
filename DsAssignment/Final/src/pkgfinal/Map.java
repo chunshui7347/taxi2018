@@ -1,5 +1,6 @@
 package pkgfinal;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -29,7 +30,8 @@ public class Map {
     private int previousrow = holdrow, previouscol = holdcol;
     private static int stepCounter = 0;
     PrintWriter pw;
-
+    PrintWriter pw1;
+    
     ArrayList<Integer> canSearch = new ArrayList<>();
     ArrayList<String> labelname = new ArrayList<>();
     ArrayList<Integer> WaitingTime = new ArrayList<>();
@@ -39,6 +41,7 @@ public class Map {
 
     public Map(int M, int N, int numOfPassenger) throws FileNotFoundException {
         this.pw = new PrintWriter(new FileOutputStream("Log.txt"));
+        this.pw1 = new PrintWriter(new FileOutputStream("temp.txt"));
         this.M = M;
         this.M = M;
         this.N = N;
@@ -283,8 +286,13 @@ public class Map {
         Passenger customer = new Passenger();
         if (saveLabel[holdrow][holdcol].contains("_s")) {
             pw.println("[" + stepCounter + "]Taxi fetch passenger " + saveLabel[holdrow][holdcol].substring(0, 1));
+            
+            pw1.println(saveLabel[holdrow][holdcol]);
+            pw1.println(stepCounter);
+            
             System.out.print("Customer " + saveLabel[holdrow][holdcol].substring(0, 1) + ", ");
-
+            
+            
             if (customer.putluggage(saveLabel[holdrow][holdcol].substring(0, 1))) {
                 stepCounter++;
                 pw.println("[" + stepCounter + "]Customer " + saveLabel[holdrow][holdcol].substring(0, 1) + " Putting Luggage");
@@ -292,10 +300,16 @@ public class Map {
 
         } else if (saveLabel[holdrow][holdcol].contains("_d")) {
             pw.println("[" + stepCounter + "]Taxi dropped passenger " + saveLabel[holdrow][holdcol].substring(0, 1));
+            
+            pw1.println(saveLabel[holdrow][holdcol].substring(0, 1));
+            pw1.println(stepCounter);
+            
             System.out.print("Customer " + saveLabel[holdrow][holdcol].substring(0, 1) + ", ");
+            
             Score lol = new Score();
             lol.GiveMark();
-
+            
+            
             if (customer.takeluggage(saveLabel[holdrow][holdcol].substring(0, 1))) {
                 stepCounter++;
                 pw.println("[" + stepCounter + "]Customer " + saveLabel[holdrow][holdcol].substring(0, 1) + " Taking Luggage");
@@ -314,8 +328,9 @@ public class Map {
                 choose();
                 direction();
             }
-
+            pw1.close();
             pw.close();
+            
         } catch (Exception e) {
             System.out.println("File output error");
         }
@@ -376,5 +391,5 @@ public class Map {
         int breakdown = 1 + rand.nextInt(19);
         return breakdown;
     }
-
+    
 }
